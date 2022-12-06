@@ -1,29 +1,17 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.main')
+@section('container')
 
-<head>
-    <title>Menampilkan Hello world!</title>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid;
-        }
 
-    </style>
-</head>
+@if ($message = Session::get('success'))
+<div class="alert alert-success" >
+    <p>{{$message}}</p>
+</div>
+@endif
 
-<body>
-    @if ($message = Session::get('success'))
-    <div>
-        <p>{{$message}}</p>
-    </div>
-    @endif
 
-    <p>Hello World!</p>
-    <a href="{{route('about')}}">About</a>
-    <a href="{{route('indexActivity')}}">Activity</a><br><br>
-
+<!-- <a href="{{route('about')}}">About</a>
+    <a href="{{route('indexActivity')}}">Activity</a><br><br> -->
+<div class="container">
     <table class="table table-bordered">
         <tr>
             <th>No</th>
@@ -34,15 +22,16 @@
         <?php $i = 1; ?>
         @foreach($data as $dt)
         <tr>
-          <td>{{$i++}}</td>
-          <td>{{$dt->id}}</td>
-          <td>{{$dt->nama_activity}}</td>
-          <td>
-            <a href="{{route('indexEditActivity', $dt->id)}}">edit</a>
-          </td>
+            <td>{{$i++}}</td>
+            <td>{{$dt->id}}</td>
+            <td>{{$dt->nama_activity}}</td>
+            <td>
+                <a href="{{route('indexEditActivity', $dt->id)}}" class="btn btn-warning">edit</a>
+                <a href="{{route('destroyActivity', $dt->id)}}" class="btn btn-danger">delete</a>
+            </td>
         </tr>
         @endforeach
     </table>
-</body>
+</div>
 
-</html>
+@endsection

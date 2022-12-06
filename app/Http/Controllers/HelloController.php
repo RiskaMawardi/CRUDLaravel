@@ -9,10 +9,11 @@ use App\Models\Activity;
 class HelloController extends Controller
 {
     public function index(){
-
+      
         $data = Activity::all();
-
-        return view('coba.hello', compact('data'));
+        
+        return view('coba.hello')
+        ->with('data',$data);
     }
 
     public function getAbout(){
@@ -37,8 +38,6 @@ class HelloController extends Controller
 
     public function indexEditActivity($id){
 
-        // $data = Activity::get();
-        //dd($data);
         $data = Activity::where('id',$id)->first();
         return view ('coba.edit-data')
         ->with('data',$data);
@@ -53,4 +52,9 @@ class HelloController extends Controller
 
         return redirect(route('index'));
     }
+
+    public function destroyActivity($id){
+        Activity::where('id', $id)->Delete();
+        return redirect(route('index'));
+    }    
 }
